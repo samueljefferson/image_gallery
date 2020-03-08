@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="photos.controller.GalleryViewController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+      <RowConstraints />
+      <RowConstraints minHeight="10.0" percentHeight="80.0" prefHeight="60.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <MenuBar GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+        <menus>
+          <Menu mnemonicParsing="true" text="_File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+                  <MenuItem accelerator="Shortcut+Q" mnemonicParsing="false" onAction="#quit" text="Quit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="true" text="_Album">
+            <items>
+                <MenuItem accelerator="Shortcut+n" mnemonicParsing="false" onAction="#createAlbum" text="Create album" />
+                  <MenuItem accelerator="Shortcut+r" mnemonicParsing="false" onAction="#renameAlbum" text="Rename album" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu mnemonicParsing="false" text="Sort by...">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#albumByName" text="Album name" />
+                        <MenuItem mnemonicParsing="false" onAction="#albumByDate" text="Album date" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Sort order...">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#albumAscending" text="Ascending" />
+                        <MenuItem mnemonicParsing="false" onAction="#albumDescending" text="Descending" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" onAction="#deleteAlbum" text="Delete album" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="true" text="_Photo">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#viewSlideshow" text="View slideshow" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#setCaption" text="Set caption" />
+                  <MenuItem mnemonicParsing="false" onAction="#removeCaption" text="Remove caption" />
+                  <MenuItem mnemonicParsing="false" onAction="#createTag" text="Create tag" />
+                  <MenuItem accelerator="Shortcut+T" mnemonicParsing="false" onAction="#addTag" text="Add tag" />
+                  <MenuItem mnemonicParsing="false" onAction="#removeTag" text="Remove selected tag" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem accelerator="Shortcut+I" mnemonicParsing="false" onAction="#addPhoto" text="Add photo to curent album" />
+                  <MenuItem mnemonicParsing="false" onAction="#copyPhoto" text="Copy photo" />
+                  <MenuItem mnemonicParsing="false" onAction="#movePhoto" text="Move photo" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <Menu text="Sort by...">
+                    <items>
+                      <MenuItem onAction="#photoByName" text="Photo name" />
+                        <MenuItem onAction="#photoByDate" text="Photo date" />
+                    </items>
+                  </Menu>
+                  <Menu text="Sort order...">
+                    <items>
+                      <MenuItem onAction="#photoAscending" text="Ascending" />
+                        <MenuItem onAction="#photoDescending" text="Descending" />
+                    </items>
+                  </Menu>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem accelerator="DELETE" mnemonicParsing="false" onAction="#deletePhoto" text="Delete selected photo" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="true" text="_Search">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#searchByTerms" text="by term(s)" />
+                  <MenuItem mnemonicParsing="false" onAction="#searchByDate" text="by date range" />
+               </items>
+            </Menu>
+            <Menu fx:id="adminMenu" mnemonicParsing="true" text="A_dmin" visible="false">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#openAdminMenu" text="Admin menu" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <GridPane GridPane.rowIndex="4">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="114.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="171.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.0" minWidth="10.0" prefWidth="432.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="154.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="448.0" minHeight="10.0" prefHeight="448.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Albums" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label text="Photos in album" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ListView fx:id="albumListView" onMouseClicked="#albumClick" prefHeight="448.0" prefWidth="146.0" GridPane.rowIndex="1" />
+            <ListView fx:id="photoListView" onMouseClicked="#photoClick" prefHeight="448.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="photoName" text="" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <ImageView fx:id="imageView" fitHeight="448.0" fitWidth="432.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane GridPane.rowIndex="5">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="394.0" minWidth="10.0" prefWidth="368.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="433.0" minWidth="10.0" prefWidth="432.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane prefHeight="138.0" prefWidth="432.0" GridPane.columnIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="63.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="photoCaption" text="" GridPane.halignment="CENTER" />
+                  <Label fx:id="photoDate" text="" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Tags" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <ListView fx:id="tagListView" prefHeight="65.0" prefWidth="368.0" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</GridPane>
